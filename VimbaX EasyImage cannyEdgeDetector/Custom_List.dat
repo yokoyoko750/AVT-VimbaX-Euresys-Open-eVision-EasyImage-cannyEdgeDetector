@@ -1,0 +1,6 @@
+InterfaceType = "USB3 Vision";  // GigE Vision, USB3 Vision, CoaXPress, CameraLink
+SearchCamera = "Model"          // None, Vendor, Model, Serial, UserID
+SearchValue = "1800 U-507c"     // Search Words Basler, Jai, CIS, acA2500-14gc, SP-5000, 21116831, TEST_EURESYS
+Save_Attribute1 = "Bird-A"      //
+Save_Attribute2 = "Flower-A"    //
+Save_Attribute3 = "Flower-B"    //

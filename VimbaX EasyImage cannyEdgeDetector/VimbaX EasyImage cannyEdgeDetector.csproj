@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>VimbaX_EasyImage_cannyEdgeDetector</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Custom_List.dat" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="MainWindow.xaml.cs" />
+    <Compile Include="MyVimbaX.cs" />
+    <Compile Include="Sub_Dialog_Index.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Custom_List.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="openevisionsigle.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="Serilog.Enrichers.WithCaller" Version="1.3.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="VmbNET" Version="1.*-*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Open_eVision_NetApi">
+      <HintPath>c:\Program Files\Euresys\Open eVision 25.02\Bin\Open_eVision_NetApi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

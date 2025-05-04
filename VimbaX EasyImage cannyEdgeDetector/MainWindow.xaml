@@ -1,0 +1,224 @@
+﻿<Window x:Class="VimbaX_EasyImage_cannyEdgeDetector.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VimbaX_EasyImage_cannyEdgeDetector"
+        mc:Ignorable="d"
+        Title="AVT VimbaX / Euresys Open eVision asyImage Canny Edge Detector" Width="1920" Height="1080" WindowStartupLocation="CenterScreen" Background="#3a3a3c" Foreground="White" FontFamily="Calibri" ShowInTaskbar="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStyle="None" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="560"/>
+            <ColumnDefinition Width="1360"/>
+        </Grid.ColumnDefinitions>
+        <!-- Acquisition Control Panel -->
+        <TextBlock Text="AVT VimbaX / Euresys Open eVision asyImage Canny Edge Detector" Margin="16,10,16,0" FontSize="18" Grid.ColumnSpan="2" Grid.Column="0"/>
+        <GroupBox Header="Acquisition Control" VerticalAlignment="Top" Height="1040" Margin="4,30,4,0" BorderThickness="1" Grid.Column="0" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="56"/>    <!-- Operation Button -->
+                    <RowDefinition Height="222"/>   <!-- Camera Information -->
+                    <RowDefinition Height="234"/>   <!-- File Setting -->
+                    <RowDefinition Height="362"/>   <!-- Open eVision Settings -->
+                    <RowDefinition Height="*"/>     <!-- Staffing Space -->
+                    <RowDefinition Height="56"/>    <!-- Exit Button -->
+                </Grid.RowDefinitions>
+                <!-- Operation Button -->
+                <Button x:Name="tButton_Operation" Content="Start" Click="Button_Operation" Margin="16,8,16,8" Grid.Row="0"/>
+                <!-- Camera Information -->
+                <GroupBox Header="Camera Information" VerticalAlignment="Top" Margin="4,0,4,2" BorderThickness="0.2" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="16"/>    <!-- CameraVender -->
+                            <RowDefinition Height="16"/>    <!-- CameraModel -->
+                            <RowDefinition Height="16"/>    <!-- ImageWidth and Height and PixelFormat -->                
+                            <RowDefinition Height="84"/>    <!-- GroupBox_Exposure -->
+                            <RowDefinition Height="16"/>    <!-- FrameRate and RejectFrane -->
+                            <RowDefinition Height="16"/>    <!-- PreProcessingTime     (Open eVision) -->
+                            <RowDefinition Height="16"/>    <!-- MainProcessingTime    (Open eVision) -->
+                            <RowDefinition Height="16"/>    <!-- DisplayProcessingTime (Open eVision) -->
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="TCameraVender" Text="Camera Vendor :" Margin="8,0,130,0" Grid.Row="0"/>
+                        <TextBlock x:Name="CameraVender" Margin="90,0,8,0" Grid.Row="0"/>
+                        <TextBlock x:Name="TCameraModel" Text="Camera Model :" Margin="8,0,130,0" Grid.Row="1"/>
+                        <TextBlock x:Name="CameraModel" Margin="90,0,8,0" Grid.Row="1"/>
+                        <TextBlock x:Name="TImageWidth" Text="Width :" Margin="8,0,470,0" Grid.Row="2"/>
+                        <TextBlock x:Name="ImageWidth" Margin="50,0,400,0" Grid.Row="2"/>
+                        <TextBlock x:Name="TImageHeight" Text="Height :" Margin="140,0,340,0" Grid.Row="2"/>
+                        <TextBlock x:Name="ImageHeight" Margin="180,0,270,0" Grid.Row="2"/>
+                        <TextBlock x:Name="TPixelFormat" Text="Pixel Format :" Margin="260,0,190,0" Grid.Row="2"/>
+                        <TextBlock x:Name="ImagePixelFormat" Margin="330,0,4,0" Text="Mono8" Grid.Row="2"/>
+                        <GroupBox x:Name="GroupBox_Exposure" Header="Exposure Setting" BorderThickness="0.2" Margin="4,0,4,2" Grid.Row="3" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="18"/>
+                                    <RowDefinition Height="18"/>
+                                    <RowDefinition Height="24"/>
+                                </Grid.RowDefinitions>
+                                <CheckBox x:Name="CheckBox_ExposureTime" Content="Enable Exposure Time" Margin="4,0,4,0" Grid.Row="0" Click="CheckBox_ExposureTime_Click" />
+                                <TextBlock x:Name="label_Exposure" Text="Exposure Time (us) :" Margin="4,0,110,0" Grid.Row="1" />
+                                <TextBlock  x:Name="label_ExposureTime" Text="10" Margin="110,0,5,0" Grid.Row="1" />
+                                <Slider x:Name="sLider_ExposureTime" Margin="4,0,4,0" Value="1000" Minimum="10" Maximum="100000" TickPlacement="TopLeft" Grid.Row="2" MouseMove="sLider_ExposureTime_MouseMove" MouseEnter="sLider_ExposureTime_MouseEnter" MouseLeave="sLider_ExposureTime_MouseLeave" TickFrequency="10000" SmallChange="1" />
+                            </Grid>
+                        </GroupBox>
+                        <TextBlock x:Name="TFrameRate" Text="Frame Rate :" Margin="4,0,450,0" Grid.Row="4"/>
+                        <TextBlock x:Name="FrameRate" Margin="70,0,400,0" Text="0.0" Grid.Row="4"/>
+                        <TextBlock x:Name="TRejectFrame" Text="Reject Frames :" Margin="140,0,300,0" Grid.Row="4"/>
+                        <TextBlock x:Name="RejectFrame" Margin="220,0,250,0" Text="0" Grid.Row="4"/>
+                        <TextBlock x:Name="TPreProcessingTime" Text="PreProcessing Time :" Margin="4,0,390,0" Grid.Row="5"/>
+                        <TextBlock x:Name="PreProcessingTime" Margin="130,0,280,0" Text="_" Grid.Row="5"/>
+                        <TextBlock x:Name="TPreProcessingAverage" Text="Average : " Margin="250,0,220,0" Grid.Row="5" />
+                        <TextBlock x:Name="PreProcessingAverage" Text="_" Margin="300,0,4,0" Grid.Row="5" />
+                        <TextBlock x:Name="TMainProcessingTime" Text="Main Processing Time :" Margin="4,0,390,0" Grid.Row="6"/>
+                        <TextBlock x:Name="MainProcessingTime" Margin="130,0,280,0" Text="_" Grid.Row="6"/>
+                        <TextBlock x:Name="TMainProcessingAverage" Text="Average : " Margin="250,0,220,0" Grid.Row="6" />
+                        <TextBlock x:Name="MainProcessingAverage" Text="_" Margin="300,0,4,0" Grid.Row="6" />
+                        <TextBlock x:Name="TDisplayProcessingTime" Text="Display processing time :" Margin="4,0,390,0" Grid.Row="7"/>
+                        <TextBlock x:Name="DisplayProcessingTime" Margin="130,0,280,0" Text="_" Grid.Row="7"/>
+                        <TextBlock x:Name="TDisplayProcessingAverage" Text="Average : " Margin="250,0,220,0" Grid.Row="7" />
+                        <TextBlock x:Name="DisplayProcessingAverage" Text="_" Margin="300,0,4,0" Grid.Row="7" />
+                    </Grid>
+                </GroupBox>
+                <!-- File Setting -->
+                <GroupBox x:Name="GroupBox_Files" Header="File Setting" BorderThickness="0.2" Margin="4,0,4,5" Grid.Row="2" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="16"/>    <!-- SaveDirectory -->
+                            <RowDefinition Height="40"/>    <!-- GroupBox_Attribute -->
+                            <RowDefinition Height="16"/>    <!-- FileIndex -->
+                            <RowDefinition Height="56"/>    <!-- Save Image Button -->
+                            <RowDefinition Height="82"/>    <!-- GroupBox_AutoSave -->
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="TEXT_SaveDirectoryt" Text="Saving Directory:" Margin="4,2,4,0" Grid.Row="0"/>
+                        <TextBox x:Name="TEXT_SaveDirectoryv" Text="c:\temp" HorizontalAlignment="Left" Margin="100,0,4,0" Width="330" Grid.Row="0"/>
+                        <GroupBox x:Name="GroupBox_Attribute" Header="Attribute" BorderThickness="0.2" Margin="4,0,4,2" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <RadioButton x:Name="Radio_None" Content="None" Margin="0,0,0,0" IsChecked="True"  Grid.Column="0"/>
+                                <RadioButton x:Name="Radio_Attribute1" Content="Good" Margin="0,0,0,0" Grid.Column="1"/>
+                                <RadioButton x:Name="Radio_Attribute2" Content="NG1" Margin="0,0,0,0" Grid.Column="2"/>
+                                <RadioButton x:Name="Radio_Attribute3" Content="NG2" Margin="0,0,0,0" Grid.Column="3"/>
+                            </Grid>
+                        </GroupBox>
+                        <TextBlock x:Name="Lavel_FileIndex" Text="File Index:" Margin="4,0,460,0" Grid.Row="2"/>
+                        <TextBlock x:Name="TEXT_FileIndex" Text="0" Margin="62,0,400,0" MouseDown="TEXT_FileIndex_MouseDown" Grid.Row="2"/>
+                        <TextBlock x:Name="Lavel_FileName" Text="File Name:" Margin="140,0,320,0" Grid.Row="2"/>
+                        <TextBlock x:Name="TEXT_FileName" Text="_" Margin="200,0,4,0" Grid.Row="2"/>
+                        <Button x:Name="tButton_SaveImage" Content="Save Image" Margin="8,8,8,8" Grid.Row="3" Click="Button_SaveImage" />
+                        <GroupBox x:Name="GroupBox_AutoSave" Header="Auto Save Setting" BorderThickness="0.2" Margin="4,0,4,4" Grid.Row="4" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="16"/>
+                                    <RowDefinition Height="16"/>
+                                    <RowDefinition Height="24"/>
+                                </Grid.RowDefinitions>
+                                <CheckBox x:Name="CheckBox_AutoSave" Content="Auto Save (Timer Mode)" Margin="4,0,4,0" Grid.Row="0" Click="CheckBox_AutoSave_Click" />
+                                <TextBlock x:Name="label_Interval" Text="Interval Time (s) :" Margin="4,0,130,0" Grid.Row="1" />
+                                <TextBlock x:Name="label_IntervalValue" Text="1s" Margin="90,0,4,0" Grid.Row="1" />
+                                <Slider x:Name="sLider_IntervalTime" Margin="4,0,4,0" Value="1" Minimum="1" Maximum="20" SmallChange="1" TickPlacement="TopLeft" Grid.Row="2" MouseMove="sLider_Interval_MouseMove" MouseEnter="sLider_IntervalTime_MouseEnter" MouseLeave="sLider_IntervalTime_MouseLeave" />
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+                <!-- Open eVision Settings -->
+                <GroupBox x:Name="GroupBox_Open_eVision" Header="Open eVision" BorderThickness="0.2" IsEnabled="True" Grid.Row="3" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="320" />
+                        </Grid.RowDefinitions>
+                        <CheckBox x:Name="CheckBox_OpeneVision_Enable" Content="Enable" Margin="4,0,4,0" IsChecked="True" Grid.Row="0" Click="CheckBox_OpeneVision_Enable_Click" />
+                        <GroupBox x:Name="GroupBox_EasyImage_CannyEdgeDetector" Header="EasyImage CannyEdgeDetector Setting" VerticalAlignment="Top" Margin="4,0,4,0" IsEnabled="True" BorderThickness="0.2" Grid.Row="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="64" />
+                                    <RowDefinition Height="42" />
+                                    <RowDefinition Height="194"/>
+                                </Grid.RowDefinitions>
+                                <GroupBox x:Name="GroupBox_UsingCore" Header="Using Core" VerticalAlignment="Top" Margin="4,0,4,0" BorderThickness="0.2" Grid.Row="0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="24"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock x:Name="label_TProcessCores" Text="Processing Cores:" Margin="4,0,390,0" Grid.Row="0" />
+                                        <TextBlock x:Name="label_ProcessCores" Text="1" Margin="94,0,4,0" Grid.Row="0" />
+                                        <Slider x:Name="sLider_ProcessCores" Margin="4,0,4,0" Value="1" Minimum="1" Maximum="32" SmallChange="2" TickPlacement="TopLeft" Grid.Row="1" MouseMove="sLider_ProcessCores_MouseMove" MouseEnter="sLider_ProcessCores_MouseEnter" MouseLeave="sLider_ProcessCores_MouseLeave"/>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox x:Name="GroupBox_Mode_Selection" Header="Mode Selector" VerticalAlignment="Top" Margin="4,0,4,0" BorderThickness="0.2" Grid.Row="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <RadioButton x:Name="RadioButton_Absolute" Content="Absolute" IsChecked="True" Grid.Column="0" />
+                                        <RadioButton x:Name="RadioButton_Relative" Content="Relative" Grid.Column="1" />
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox x:Name="GroupBox_EasyImage_Parameter" BorderThickness="0" Margin="0,4,0,0" Grid.Row="2">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="52" />
+                                            <RowDefinition Height="52" />
+                                            <RowDefinition Height="78" />
+                                        </Grid.RowDefinitions>
+                                        <GroupBox x:Name="GroupBox_EasyImage_Adjust1" VerticalAlignment="Top" BorderThickness="0" Grid.Row="0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="16"/>
+                                                    <RowDefinition Height="24"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock x:Name="label_EasyImage_TAdjust1" Text="High Threshold:" Margin="4,0,390,0" Grid.Row="0" />
+                                                <TextBlock x:Name="label_EasyImage_Adjust1" Text="1" Margin="90,0,4,0" Grid.Row="0" Grid.ColumnSpan="2"/>
+                                                <Slider x:Name="sLider_EasyImage_Adjust1" Margin="4,0,4,0" Value="1" Minimum="0" Maximum="1024" SmallChange="1" TickPlacement="TopLeft" Grid.Row="1" MouseMove="sLider_EasyImage_Adjust1_MouseMove" MouseEnter="sLider_EasyImage_Adjust1_MouseEnter" MouseLeave="sLider_EasyImage_Adjust1_MouseLeave" TickFrequency="128" Grid.ColumnSpan="2"/>
+                                            </Grid>
+                                        </GroupBox>
+                                        <GroupBox x:Name="GroupBox_EasyImage_Adjust2" VerticalAlignment="Top" BorderThickness="0" Grid.Row="1">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="16"/>
+                                                    <RowDefinition Height="24"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock x:Name="label_EasyImage_TAdjust2" Text="Low Threshold:" Margin="4,0,390,0" Grid.Row="0" />
+                                                <TextBlock x:Name="label_EasyImage_Adjust2" Text="1" Margin="90,0,4,0" Grid.Row="0" />
+                                                <Slider x:Name="sLider_EasyImage_Adjust2" Margin="4,0,4,0" Value="1" Minimum="0" Maximum="1024" SmallChange="1" TickPlacement="TopLeft" Grid.Row="1" MouseMove="sLider_EasyImage_Adjust2_MouseMove" MouseEnter="sLider_EasyImage_Adjust2_MouseEnter" MouseLeave="sLider_EasyImage_Adjust2_MouseLeave" TickFrequency="128"/>
+                                            </Grid>
+                                        </GroupBox>
+                                        <GroupBox x:Name="GroupBox_EasyImage_Adjust3" Header="Smoothing" VerticalAlignment="Top" BorderThickness="0.2" Grid.Row="2">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="16"/>
+                                                    <RowDefinition Height="16"/>
+                                                    <RowDefinition Height="24"/>
+                                                </Grid.RowDefinitions>
+                                                <CheckBox x:Name="CheckBox_EasyImage_Adjust3" Content="Gaussian Smoothing" Grid.Row="0" Click="CheckBox_EasyImage_Adjust3_Click" />
+                                                <TextBlock x:Name="label_EasyImage_TAdjust3" Text="Smoothing Scale:" Margin="4,0,380,0" Grid.Row="1" />
+                                                <TextBlock x:Name="label_EasyImage_Adjust3" Text="1" Margin="100,0,4,0" Grid.Row="1" />
+                                                <Slider x:Name="sLider_EasyImage_Adjust3" Margin="4,0,4,0" Value="1" Minimum="0" Maximum="16" SmallChange="1" TickPlacement="TopLeft" Grid.Row="2" MouseMove="sLider_EasyImage_Adjust3_MouseMove" MouseEnter="sLider_EasyImage_Adjust3_MouseEnter" MouseLeave="sLider_EasyImage_Adjust3_MouseLeave" TickFrequency="2"/>
+                                            </Grid>
+                                        </GroupBox>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+                <!-- Exit Button -->
+                <Button x:Name="tButton_Exit" Content="Exit" Click="Button_Exit" Margin="16,8,16,8" IsEnabled="True" Grid.Row="5"/>
+            </Grid>
+        </GroupBox>
+        <!-- Camera Image -->
+        <GroupBox Header="Camera Image and Result" VerticalAlignment="Top" Width="1350" Height="1040" Margin="4,30,4,0" BorderThickness="1" Grid.Column="2">
+            <Grid>
+                <TextBlock x:Name="Text_CameraImage" Margin="4,4,4,4" Text="Source Image" />
+                <Image x:Name="CameraImage" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,30,4,4" Width="1330" Height="980" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
